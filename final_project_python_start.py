@@ -33,15 +33,46 @@ def get_int(phrase='Input'):
 def main():
     while True:
         # Main program menu
-        print('Hello, select the option in the menu: ')
+        print('Hello, available options: ')
         menu_counter = 1
         for key in catalog.keys():
-            print(f'\t{menu_counter}. {key};')
+            print(f'\t{menu_counter}. {key.capitalize()};')
             menu_counter += 1
+        menu_counter = 1
 
-        # Getting integer from user
-        user_input = get_int('Select menu number')
-        print(user_input)
+        # Getting menu number from user
+        while True:
+            menu_input = get_int('\nSelect menu number')
+            if menu_input in range(1, len(catalog.keys()) + 1):
+                break
+            else:
+                print('Invalid input')
+
+        match menu_input:
+            case 1:
+                print('\nAvailable movie genre: ')
+                for key in catalog['Recommend movie'].keys():
+                    print(f'\t- {key.capitalize()};')
+
+                # Getting movie genre from user
+                while True:
+                    genre_list = list(map(str.lower, catalog['Recommend movie'].keys()))
+                    movie_genre = input('\nGenre name: ').strip().lower()
+                    if movie_genre in genre_list:
+                        break
+                    else:
+                        print('Invalid input')
+
+                # Giving the user a random movie from the database
+                movie_list = catalog['Recommend movie'][movie_genre]
+                print('We can recommend: "{}"'.format(*random.choices(movie_list)))
+            case 2:
+                pass
+            case 3:
+                pass
+            case 4:
+                pass
+
         break
 
 
