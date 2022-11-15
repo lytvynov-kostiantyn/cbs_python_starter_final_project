@@ -20,11 +20,28 @@ catalog = {
 }
 
 
+# Getting integer from user
+def get_int(phrase='Input'):
+    while True:
+        try:
+            x = int(input(f'{phrase}: '))
+            return x
+        except ValueError:
+            print('Invalid input')
+
+
 def main():
     while True:
-        print('Hello:)')
+        # Main program menu
+        print('Hello, select the option in the menu: ')
+        menu_counter = 1
         for key in catalog.keys():
-            print(f'- {key};')
+            print(f'\t{menu_counter}. {key};')
+            menu_counter += 1
+
+        # Getting integer from user
+        user_input = get_int('Select menu number')
+        print(user_input)
         break
 
 
