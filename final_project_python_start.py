@@ -39,43 +39,41 @@ def rock_paper_scissors():
         options = ['rock', 'paper', 'scissors']
         
         computer_choice = random.choice(options)
-        user_input = input('Your choice: ').lower().strip()
+        user_choice = input('Your choice: ').lower().strip()
         print(f'Computer choice: {computer_choice}')
 
-        if user_input == 'q':
+        if user_choice == 'q':
             deliver()
             print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
             deliver()
             sleep(3)
             break
         
-        if user_input not in options:
+        if user_choice not in options:
             print('Invalid input')
         else:
             deliver()
-            if user_input == computer_choice:
+
+            # Function to determine the winner
+            def winner_determiner(var1, var2):
+                if var1 == var2:
+                    return 'Draw'
+                if var1 == 'rock':
+                    return 'User2' if var2 == 'paper' else 'User1'
+                if var1 == 'paper':
+                    return 'User2' if var2 == 'scissors' else 'User1'
+                if var1 == 'scissors':
+                    return 'User2' if var2 == 'rock' else 'User1'
+
+            winner = winner_determiner(user_choice, computer_choice)
+            if winner == 'Draw':
                 print('Draw!'.center(60, ' '))
-            elif user_input == 'rock':
-                if computer_choice == 'paper':
-                    print('You lose!'.center(60, ' '))
-                    computer += 1
-                else:
-                    print('You win!'.center(60, ' '))
-                    user += 1
-            elif user_input == 'paper':
-                if computer_choice == 'scissors':
-                    print('You lose!'.center(60, ' '))
-                    computer += 1
-                else:
-                    print('You win!'.center(60, ' '))
-                    user += 1
+            elif winner == 'User1':
+                print('You win!'.center(60, ' '))
+                user += 1
             else:
-                if computer_choice == 'rock':
-                    print('You lose!'.center(60, ' '))
-                    computer += 1
-                else:
-                    print('You win!'.center(60, ' '))
-                    user += 1
+                print('You lose!'.center(60, ' '))
+                computer += 1
 
             print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
             deliver()
