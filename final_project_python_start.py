@@ -218,11 +218,15 @@ def main():
                 deliver()
                 sleep(3)
             else:
+                # Getting fonts from module
                 fonts_list = Figlet().getFonts()
-
+                # Getting phrase from user for converting
                 user_input = input('Phrase to convert: ')
+                # Setting random font
                 Figlet().setFont(font=choice(fonts_list))
+                # Setting random color
                 set_color = choice(['red', 'blue', 'yellow'])
+                # Printing result
                 termcolor.cprint(Figlet().renderText(user_input), set_color)
                 deliver()
                 sleep(3)
