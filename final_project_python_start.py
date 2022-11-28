@@ -117,7 +117,7 @@ def guess_the_number():
 
 
 # Getting genre from user and checking it in db
-def get_genre(db_list, phrase='Input'):
+def get_genre(db_list: list, phrase='Input'):
     while True:
         genre_list = list(map(str.lower, db_list))
         genre = input(f'{phrase}: ').strip().lower()
@@ -128,7 +128,7 @@ def get_genre(db_list, phrase='Input'):
 
 
 # Getting menu number from user in special range
-def get_menu_num(num, phrase='Input'):
+def get_menu_num(num: int, phrase='Input'):
     while True:
         try:
             x = int(input(f'{phrase}: '))
