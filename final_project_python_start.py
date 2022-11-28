@@ -1,4 +1,10 @@
 import random
+from time import sleep
+import pyjokes
+from pyfiglet import Figlet
+from random import choice
+import termcolor
+
 
 catalog = {
     'Recommend movie': {
@@ -8,72 +14,199 @@ catalog = {
     },
     'Recommend music': {
         'heavy metal': ['Metallica - Enter Sandman', 'Ozzy Osbourne - Crazy Train', 'Slipknot - Duality'],
-        'rap and hip-hop': ['Jelly Roll - Save Me', 'Nicki Minaj - Super Freaky Girl', 'Dax - JOKER'],
+        'hip-hop': ['Jelly Roll - Save Me', 'Nicki Minaj - Super Freaky Girl', 'Dax - JOKER'],
         'pop': ['Rihanna - Lift Me Up', 'Taylor Swift - Anti-Hero', 'Rihanna - Born Again'],
     },
     'Recommend pc game': {
-        'shooters ': ['Halo', 'Gears of War', 'DOOM'],
+        'shooters': ['Halo', 'Gears of War', 'DOOM'],
         'sandbox': ['Minecraft', 'Grand Theft Auto', 'The Sims'],
-        'strategy ': ['Warcraft', 'Age of Empires', 'Command & Conquer'],
+        'strategy': ['Warcraft', 'Age of Empires', 'Command & Conquer'],
     },
     'Play the game': ["Guess the number", "Rock-paper-scissors"],
+    'Some fun:)': ['ASCII art', 'Funny jokes']
 }
 
 
-# Getting integer from user
-def get_int(phrase='Input'):
+def rock_paper_scissors():
+    print('Welcome to the "rock-paper-scissors"'.center(60, ' '))
+    print('If you want stop, press "q". Good luck!'.center(60, ' '))
+    deliver()
+
+    computer = 0
+    user = 0
+
+    while True:
+        options = ['rock', 'paper', 'scissors']
+        
+        computer_choice = random.choice(options)
+        user_input = input('Your choice: ').lower().strip()
+
+        if user_input == 'q':
+            print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
+            deliver()
+            break
+        
+        if user_input not in options:
+            print('Invalid input')
+        else:
+            if user_input == computer_choice:
+                print('Draw!'.center(60, ' '))
+            elif user_input == 'rock':
+                if computer_choice == 'paper':
+                    computer += 1
+                else:
+                    user += 1
+            elif user_input == 'paper':
+                if computer_choice == 'scissors':
+                    computer += 1
+                else:
+                    user += 1
+            else:
+                if computer_choice == 'rock':
+                    computer += 1
+                else:
+                    user += 1
+            
+            print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
+            deliver()
+
+
+def guess_the_number():
+    print('Welcome to the "guess the number"'.center(60, ' '))
+    print('I guess the number in range 1...7, and you must'.center(60, ' '))
+    print('guess it! If you want stop, press "q". Good luck!'.center(60, ' '))
+    deliver()
+
+    computer = 0
+    user = 0
+
+    while True:
+        boo = random.randrange(1, 7)
+        user_input = input('Your choice: ')
+        if user_input.lower().strip() == 'q':
+            print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
+            deliver()
+            break
+        try:
+            baz = int(user_input)
+        except ValueError:
+            print('Invalid input')
+            continue
+        sleep(2)
+        deliver()
+        if baz == boo:
+            print('You win!'.center(60, ' '))
+            user += 1
+        else:
+            print('You lose!'.center(60, ' '))
+            computer += 1
+        
+        print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
+        deliver()
+        
+
+# Getting genre from user and checking it in db
+def get_genre(db_list, phrase='Input'):
+    while True:
+        genre_list = list(map(str.lower, db_list))
+        genre = input(f'{phrase}: ').strip().lower()
+        if genre in genre_list:
+            return genre
+        else:
+            print('Invalid input')
+
+
+# Getting menu number from user in special range
+def get_menu_num(num, phrase='Input'):
     while True:
         try:
             x = int(input(f'{phrase}: '))
-            return x
         except ValueError:
             print('Invalid input')
+        else:
+            if 1 <= x <= num:
+                return x 
+
+
+def deliver():
+    print('-' * 60)
 
 
 def main():
     while True:
-        # Main program menu
-        print('Hello, available options: ')
-        menu_counter = 1
-        for key in catalog.keys():
-            print(f'\t{menu_counter}. {key.capitalize()};')
-            menu_counter += 1
-        menu_counter = 1
+        # Main menu
+        print('Welcome cbs bot!'.center(60, '_'))
+        print('Select one of available options: ')
+        menu = list(catalog.keys())
+        for i in range(len(menu)):
+            print(f'\t{i + 1}. {menu[i]};')
+        deliver()
 
         # Getting menu number from user
-        while True:
-            menu_input = get_int('\nSelect menu number')
-            if menu_input in range(1, len(catalog.keys()) + 1):
-                break
+        user_input = get_menu_num(len(menu), 'Select menu number')
+        deliver()
+
+        if user_input in [1, 2, 3]:
+            print('Available genre: ')
+            match user_input:
+                case 1:
+                    baz = 'Recommend movie'
+                case 2:
+                    baz = 'Recommend music'
+                case 3:
+                    baz = 'Recommend pc game'
+
+            db_genre_list = catalog[baz].keys()
+            for key in db_genre_list:
+                print(f'\t- {key};')
+            deliver()
+
+            # Getting genre from user
+            genre = get_genre(db_genre_list, 'Genre name')
+
+            # Giving the user a random movie from the database
+            db_list = catalog[baz][genre]
+            print('We can recommend: "{}"'.format(*random.choices(db_list)))
+            deliver()
+
+        elif user_input == 4:
+            print('We can play: ')
+            available_games = catalog['Play the game']
+            for i in range(len(available_games)):
+                print(f"\t{i + 1}. {available_games[i]};")
+            deliver()
+
+            # Getting menu number from user
+            game_num = get_menu_num(len(available_games), 'Select game number')
+            deliver()
+            
+            if game_num == 1:
+                guess_the_number()
             else:
-                print('Invalid input')
+                rock_paper_scissors()
+        
+        elif user_input == 5:
+            print('We can suggest: ')
+            options = catalog['Some fun:)']
+            for i in range(len(options)):
+                print(f"\t{i + 1}. {options[i]};")
+            deliver()
 
-        match menu_input:
-            case 1:
-                print('\nAvailable movie genre: ')
-                for key in catalog['Recommend movie'].keys():
-                    print(f'\t- {key.capitalize()};')
+            # Getting menu number from user
+            option_input = get_menu_num(len(options), 'xxx')
+            deliver()
 
-                # Getting movie genre from user
-                while True:
-                    genre_list = list(map(str.lower, catalog['Recommend movie'].keys()))
-                    movie_genre = input('\nGenre name: ').strip().lower()
-                    if movie_genre in genre_list:
-                        break
-                    else:
-                        print('Invalid input')
+            if option_input == 1:
+                print(pyjokes.get_joke())
+                deliver()
+            else:
+                fonts_list = Figlet().getFonts()
 
-                # Giving the user a random movie from the database
-                movie_list = catalog['Recommend movie'][movie_genre]
-                print('We can recommend: "{}"'.format(*random.choices(movie_list)))
-            case 2:
-                pass
-            case 3:
-                pass
-            case 4:
-                pass
-
-        break
+                user_input = input('Phrase to convert: ')
+                Figlet().setFont(font=choice(fonts_list))
+                set_color = choice(['red', 'blue', 'yellow'])
+                termcolor.cprint(Figlet().renderText(user_input), set_color)
+                deliver()
 
 
 if __name__ == '__main__':
