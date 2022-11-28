@@ -23,13 +23,13 @@ catalog = {
         'strategy': ['Warcraft', 'Age of Empires', 'Command & Conquer'],
     },
     'Play the game': ["Guess the number", "Rock-paper-scissors"],
-    'Some fun:)': ['ASCII art', 'Funny jokes']
+    'Some fun:)': ['Funny jokes', 'ASCII art']
 }
 
 
 def rock_paper_scissors():
     print('Welcome to the "rock-paper-scissors"'.center(60, ' '))
-    print('If you want stop, press "q". Good luck!'.center(60, ' '))
+    print('If you want to stop, press "q". Good luck!'.center(60, ' '))
     deliver()
 
     computer = 0
@@ -40,41 +40,51 @@ def rock_paper_scissors():
         
         computer_choice = random.choice(options)
         user_input = input('Your choice: ').lower().strip()
+        print(f'Computer choice: {computer_choice}')
 
         if user_input == 'q':
+            deliver()
             print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
             deliver()
+            sleep(3)
             break
         
         if user_input not in options:
             print('Invalid input')
         else:
+            deliver()
             if user_input == computer_choice:
                 print('Draw!'.center(60, ' '))
             elif user_input == 'rock':
                 if computer_choice == 'paper':
+                    print('You lose!'.center(60, ' '))
                     computer += 1
                 else:
+                    print('You win!'.center(60, ' '))
                     user += 1
             elif user_input == 'paper':
                 if computer_choice == 'scissors':
+                    print('You lose!'.center(60, ' '))
                     computer += 1
                 else:
+                    print('You win!'.center(60, ' '))
                     user += 1
             else:
                 if computer_choice == 'rock':
+                    print('You lose!'.center(60, ' '))
                     computer += 1
                 else:
+                    print('You win!'.center(60, ' '))
                     user += 1
-            
+
             print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
             deliver()
 
 
 def guess_the_number():
     print('Welcome to the "guess the number"'.center(60, ' '))
-    print('I guess the number in range 1...7, and you must'.center(60, ' '))
-    print('guess it! If you want stop, press "q". Good luck!'.center(60, ' '))
+    print('You must guess the number in the range from 1 to 7!'.center(60, ' '))
+    print('If you want to stop, press "q". Good luck!'.center(60, ' '))
     deliver()
 
     computer = 0
@@ -84,8 +94,10 @@ def guess_the_number():
         boo = random.randrange(1, 7)
         user_input = input('Your choice: ')
         if user_input.lower().strip() == 'q':
+            deliver()
             print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
             deliver()
+            sleep(3)
             break
         try:
             baz = int(user_input)
@@ -103,7 +115,7 @@ def guess_the_number():
         
         print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
         deliver()
-        
+
 
 # Getting genre from user and checking it in db
 def get_genre(db_list, phrase='Input'):
@@ -125,9 +137,12 @@ def get_menu_num(num, phrase='Input'):
             print('Invalid input')
         else:
             if 1 <= x <= num:
-                return x 
+                return x
+            else:
+                print('Invalid input')
 
 
+# Procedure for design
 def deliver():
     print('-' * 60)
 
@@ -147,7 +162,7 @@ def main():
         deliver()
 
         if user_input in [1, 2, 3]:
-            print('Available genre: ')
+            print('Available genres: ')
             match user_input:
                 case 1:
                     baz = 'Recommend movie'
@@ -158,7 +173,7 @@ def main():
 
             db_genre_list = catalog[baz].keys()
             for key in db_genre_list:
-                print(f'\t- {key};')
+                print(f'\t- {key.capitalize()};')
             deliver()
 
             # Getting genre from user
@@ -166,8 +181,10 @@ def main():
 
             # Giving the user a random movie from the database
             db_list = catalog[baz][genre]
+            deliver()
             print('We can recommend: "{}"'.format(*random.choices(db_list)))
             deliver()
+            sleep(3)
 
         elif user_input == 4:
             print('We can play: ')
@@ -193,12 +210,13 @@ def main():
             deliver()
 
             # Getting menu number from user
-            option_input = get_menu_num(len(options), 'xxx')
+            option_input = get_menu_num(len(options), 'Select menu number')
             deliver()
 
             if option_input == 1:
                 print(pyjokes.get_joke())
                 deliver()
+                sleep(3)
             else:
                 fonts_list = Figlet().getFonts()
 
@@ -207,6 +225,7 @@ def main():
                 set_color = choice(['red', 'blue', 'yellow'])
                 termcolor.cprint(Figlet().renderText(user_input), set_color)
                 deliver()
+                sleep(3)
 
 
 if __name__ == '__main__':
