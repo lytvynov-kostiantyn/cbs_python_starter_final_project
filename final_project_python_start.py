@@ -23,7 +23,8 @@ catalog = {
         'strategy': ['Warcraft', 'Age of Empires', 'Command & Conquer'],
     },
     'Play the game': ["Guess the number", "Rock-paper-scissors"],
-    'Some fun:)': ['Funny jokes', 'ASCII art']
+    'More fun:)': ['Funny jokes', 'ASCII art'],
+    'Exit': 'Exit'
 }
 
 
@@ -148,7 +149,7 @@ def deliver():
 def main():
     while True:
         # Main menu
-        print('Welcome cbs bot!'.center(60, '_'))
+        print('Welcome cbs bot!'.center(60, '.'))
         print('Select one of available options: ')
         menu = list(catalog.keys())
         for i in range(len(menu)):
@@ -202,7 +203,7 @@ def main():
         
         elif user_input == 5:
             print('We can suggest: ')
-            options = catalog['Some fun:)']
+            options = catalog['More fun:)']
             for i in range(len(options)):
                 print(f"\t{i + 1}. {options[i]};")
             deliver()
@@ -223,11 +224,16 @@ def main():
                 # Setting random font
                 Figlet().setFont(font=choice(fonts_list))
                 # Setting random color
-                set_color = choice(['red', 'blue', 'yellow'])
+                set_color = choice(['red', 'blue', 'yellow', 'green'])
                 # Printing result
                 termcolor.cprint(Figlet().renderText(user_input), set_color)
                 deliver()
                 sleep(3)
+
+        else:
+            print('Goodbye!'.center(60, ' '))
+            deliver()
+            break
 
 
 if __name__ == '__main__':
