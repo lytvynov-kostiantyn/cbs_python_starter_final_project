@@ -28,7 +28,7 @@ catalog = {
 }
 
 
-def rock_paper_scissors():
+def rock_paper_scissors(name: str):
     print('Welcome to the "rock-paper-scissors"'.center(60, ' '))
     print('If you want to stop, press "q". Good luck!'.center(60, ' '))
     deliver()
@@ -45,7 +45,7 @@ def rock_paper_scissors():
 
         if user_choice == 'q':
             deliver()
-            print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
+            print(f'Score: Computer {computer}:{user} {name}'.center(60, ' '))
             deliver()
             sleep(3)
             break
@@ -76,11 +76,11 @@ def rock_paper_scissors():
                 print('You lose!'.center(60, ' '))
                 computer += 1
 
-            print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
+            print(f'Score: Computer {computer}:{user} {name}'.center(60, ' '))
             deliver()
 
 
-def guess_the_number():
+def guess_the_number(name: str):
     print('Welcome to the "guess the number"'.center(60, ' '))
     print('You must guess the number in the range from 1 to 7!'.center(60, ' '))
     print('If you want to stop, press "q". Good luck!'.center(60, ' '))
@@ -94,7 +94,7 @@ def guess_the_number():
         user_input = input('Your choice: ')
         if user_input.lower().strip() == 'q':
             deliver()
-            print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
+            print(f'Score: Computer {computer}:{user} {name}'.center(60, ' '))
             deliver()
             sleep(3)
             break
@@ -112,7 +112,7 @@ def guess_the_number():
             print('You lose!'.center(60, ' '))
             computer += 1
         
-        print(f'Score: Computer {computer}:{user} User'.center(60, ' '))
+        print(f'Score: Computer {computer}:{user} {name}'.center(60, ' '))
         deliver()
 
 
@@ -195,11 +195,14 @@ def main():
             # Getting menu number from user
             game_num = get_menu_num(len(available_games), 'Select game number')
             deliver()
-            
+
+            user_name = input('Enter your name: ')
+            boo = user_name if user_name else 'User'
+
             if game_num == 1:
-                guess_the_number()
+                guess_the_number(boo)
             else:
-                rock_paper_scissors()
+                rock_paper_scissors(boo)
         
         elif user_input == 5:
             print('We can suggest: ')
