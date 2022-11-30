@@ -1,8 +1,7 @@
-import random
 from time import sleep
 import pyjokes
 from pyfiglet import Figlet
-from random import choice
+from random import choice, randrange, choices
 import termcolor
 
 
@@ -39,7 +38,7 @@ def rock_paper_scissors(name: str):
     while True:
         options = ['rock', 'paper', 'scissors']
         
-        computer_choice = random.choice(options)
+        computer_choice = choice(options)
         user_choice = input('Your choice: ').lower().strip()
         print(f'Computer choice: {computer_choice}')
 
@@ -90,7 +89,7 @@ def guess_the_number(name: str):
     user = 0
 
     while True:
-        boo = random.randrange(1, 7)
+        boo = randrange(1, 7)
         user_input = input('Your choice: ')
         if user_input.lower().strip() == 'q':
             deliver()
@@ -181,7 +180,7 @@ def main():
             # Giving the user a random movie from the database
             db_list = catalog[baz][genre]
             deliver()
-            print('We can recommend: "{}"'.format(*random.choices(db_list)))
+            print('We can recommend: "{}"'.format(*choices(db_list)))
             deliver()
             sleep(3)
 
