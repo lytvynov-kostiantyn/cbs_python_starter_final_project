@@ -26,6 +26,8 @@ catalog = {
     'Exit': 'Exit'
 }
 
+colors = ['red', 'blue', 'yellow', 'green']
+
 
 def rock_paper_scissors(name: str):
     print('Welcome to the "rock-paper-scissors"'.center(60, ' '))
@@ -142,7 +144,8 @@ def get_menu_num(num: int, phrase='Input'):
 
 # Procedure for design
 def deliver():
-    print('-' * 60)
+    set_color = choice(colors)
+    termcolor.cprint('-' * 60, set_color)
 
 
 def main():
@@ -226,7 +229,7 @@ def main():
                 # Setting random font
                 Figlet().setFont(font=choice(fonts_list))
                 # Setting random color
-                set_color = choice(['red', 'blue', 'yellow', 'green'])
+                set_color = choice(colors)
                 # Printing result
                 termcolor.cprint(Figlet().renderText(user_input), set_color)
                 deliver()
