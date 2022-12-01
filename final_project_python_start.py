@@ -32,7 +32,7 @@ colors = ['red', 'blue', 'yellow', 'green']
 def rock_paper_scissors(name: str):
     print('Welcome to the "rock-paper-scissors"'.center(60, ' '))
     print('If you want to stop, press "q". Good luck!'.center(60, ' '))
-    deliver()
+    separator()
 
     computer = 0
     user = 0
@@ -45,16 +45,16 @@ def rock_paper_scissors(name: str):
         print(f'Computer choice: {computer_choice}')
 
         if user_choice == 'q':
-            deliver()
+            separator()
             print(f'Score: Computer {computer}:{user} {name}'.center(60, ' '))
-            deliver()
+            separator()
             sleep(3)
             break
         
         if user_choice not in options:
             print('Invalid input')
         else:
-            deliver()
+            separator()
 
             # Function to determine the winner
             def winner_determiner(var1, var2):
@@ -78,14 +78,14 @@ def rock_paper_scissors(name: str):
                 computer += 1
 
             print(f'Score: Computer {computer}:{user} {name}'.center(60, ' '))
-            deliver()
+            separator()
 
 
 def guess_the_number(name: str):
     print('Welcome to the "guess the number"'.center(60, ' '))
     print('You must guess the number in the range from 1 to 7!'.center(60, ' '))
     print('If you want to stop, press "q". Good luck!'.center(60, ' '))
-    deliver()
+    separator()
 
     computer = 0
     user = 0
@@ -94,9 +94,9 @@ def guess_the_number(name: str):
         boo = randrange(1, 7)
         user_input = input('Your choice: ')
         if user_input.lower().strip() == 'q':
-            deliver()
+            separator()
             print(f'Score: Computer {computer}:{user} {name}'.center(60, ' '))
-            deliver()
+            separator()
             sleep(3)
             break
         try:
@@ -105,7 +105,7 @@ def guess_the_number(name: str):
             print('Invalid input')
             continue
         sleep(2)
-        deliver()
+        separator()
         if baz == boo:
             print('You win!'.center(60, ' '))
             user += 1
@@ -114,7 +114,7 @@ def guess_the_number(name: str):
             computer += 1
         
         print(f'Score: Computer {computer}:{user} {name}'.center(60, ' '))
-        deliver()
+        separator()
 
 
 # Getting genre from user and checking it in db
@@ -143,7 +143,7 @@ def get_menu_num(num: int, phrase='Input'):
 
 
 # Procedure for design
-def deliver():
+def separator():
     set_color = choice(colors)
     termcolor.cprint('-' * 60, set_color)
 
@@ -156,11 +156,11 @@ def main():
         menu = list(catalog.keys())
         for i in range(len(menu)):
             print(f'\t{i + 1}. {menu[i]};')
-        deliver()
+        separator()
 
         # Getting menu number from user
         user_input = get_menu_num(len(menu), 'Select menu number')
-        deliver()
+        separator()
 
         if user_input in [1, 2, 3]:
             print('Available genres: ')
@@ -175,16 +175,16 @@ def main():
             db_genre_list = catalog[baz].keys()
             for key in db_genre_list:
                 print(f'\t- {key.capitalize()};')
-            deliver()
+            separator()
 
             # Getting genre from user
             genre = get_genre(db_genre_list, 'Genre name')
 
             # Giving the user a random movie from the database
             db_list = catalog[baz][genre]
-            deliver()
+            separator()
             print('We can recommend: "{}"'.format(*choices(db_list)))
-            deliver()
+            separator()
             sleep(3)
 
         elif user_input == 4:
@@ -192,11 +192,11 @@ def main():
             available_games = catalog['Play the game']
             for i in range(len(available_games)):
                 print(f"\t{i + 1}. {available_games[i]};")
-            deliver()
+            separator()
 
             # Getting menu number from user
             game_num = get_menu_num(len(available_games), 'Select game number')
-            deliver()
+            separator()
 
             user_name = input('Enter your name: ')
             boo = user_name if user_name else 'User'
@@ -211,15 +211,15 @@ def main():
             options = catalog['More fun:)']
             for i in range(len(options)):
                 print(f"\t{i + 1}. {options[i]};")
-            deliver()
+            separator()
 
             # Getting menu number from user
             option_input = get_menu_num(len(options), 'Select menu number')
-            deliver()
+            separator()
 
             if option_input == 1:
                 print(pyjokes.get_joke())
-                deliver()
+                separator()
                 sleep(3)
             else:
                 # Getting fonts from module
@@ -232,12 +232,12 @@ def main():
                 set_color = choice(colors)
                 # Printing result
                 termcolor.cprint(Figlet().renderText(user_input), set_color)
-                deliver()
+                separator()
                 sleep(3)
 
         else:
             print('Goodbye!'.center(60, ' '))
-            deliver()
+            separator()
             break
 
 
