@@ -1,9 +1,11 @@
 from time import sleep
 import pyjokes
 from pyfiglet import Figlet
-from random import choice, randrange, choices, randint
-import termcolor
+from random import choice, randrange, choices
+import colorama
+from termcolor import colored
 
+colorama.just_fix_windows_console()
 
 catalog = {
     'Recommend movie': {
@@ -22,11 +24,30 @@ catalog = {
         'strategy': ['Warcraft', 'Age of Empires', 'Command & Conquer'],
     },
     'Play the game': ["Guess the number", "Rock-paper-scissors"],
-    'More fun:)': ['Funny jokes', 'ASCII art'],
+    'More fun:)': ['Funny jokes', 'ASCII art', 'Get interesting fact'],
     'Exit': 'Exit'
 }
 
-colors = ['red', 'blue', 'yellow', 'green']
+colors = ["red", "green", "yellow", "blue"]
+
+facts = [
+    "Кожен сьомий у світі китаєць, а кожен пятий у світі псих. Ми живемо у світі де панують китайці й психи!",
+    "Чіпси вперше приготували 24 серпня 1853 в якості жартівливої відповіді на скаргу клієнта про те, що скибочки "
+    "картоплі занадто товсті та не просмажені.",
+    "Чхання може бути неймовірно швидким. Було підраховано, що швидкість чхання становить більш ніж 160 км на годину.",
+    "11% всіх зламаних сканерів виходять з ладу тому, що люди сідають на них для копії частин тіла!",
+    "Коли європейці вперше побачили жирафу, вони назвали її «верблюдопардом», вирішивши, що це гібрид верблюда і"
+    " леопарда.",
+    "Якщо зустрінетеся з восьминогом, загляньте йому в очі, це може бути цікаво: у восьминогів прямокутні зіниці.",
+    "Експортна назва автомобіля Лада Калина для Фінляндії — Lada 119, оскільки в перекладі з фінської Kalina значить"
+    " тріск, гуркіт, деренчання і стукіт.",
+    "Шотландський фізик Роберт Уотсон-Уотт одного разу був зупинений поліціянтом за перевищення швидкості, після чого"
+    " сказав: «Якби я знав, що ви будете з ним робити, то ніколи не винайшов би радар!».",
+    "У Windows не можна створити файл або теку під назвою «Con», бо у Білла Гейтса в дитинстві було прізвисько,"
+    " Con — ботанік. І він постарався щоб в його системі були відсутні такі файли й теки.",
+    "На поверхні звичайного офісного столу кількість бактерій в 400 разів більша, ніж на сидінні унітазу.",
+    "У 18 столітті серед парижанок було модно носити капелюшки з громовідводами."
+]
 
 
 def rock_paper_scissors(name: str):
@@ -145,32 +166,20 @@ def get_menu_num(num: int, phrase='Input'):
 # Procedure for design
 def separator():
     set_color = choice(colors)
-    termcolor.cprint('-' * 60, set_color)
+    print(colored('-' * 60, set_color))
+    # termcolor.cprint('-' * 60, set_color)
 
 
 def interesting_facts():
-    facts = [
-        "Кожен сьомий у світі китаєць, а кожен пятий у світі псих. Ми живемо у світі де панують китайці й психи!",
-        "Чіпси вперше приготували 24 серпня 1853 в якості жартівливої відповіді на скаргу клієнта про те, що скибочки картоплі занадто товсті та не просмажені.",
-        "Чхання може бути неймовірно швидким. Було підраховано, що швидкість чхання становить більш ніж 160 км на годину.",
-        "11% всіх зламаних сканерів виходять з ладу тому, що люди сідають на них для копії частин тіла!",
-        "Коли європейці вперше побачили жирафу, вони назвали її «верблюдопардом», вирішивши, що це гібрид верблюда і леопарда.",
-        "Якщо зустрінетеся з восьминогом, загляньте йому в очі, це може бути цікаво: у восьминогів прямокутні зіниці.",
-        "Експортна назва автомобіля Лада Калина для Фінляндії — Lada 119, оскільки в перекладі з фінської Kalina значить тріск, гуркіт, деренчання і стукіт.",
-        "Шотландський фізик Роберт Уотсон-Уотт одного разу був зупинений поліціянтом за перевищення швидкості, після чого сказав: «Якби я знав, що ви будете з ним робити, то ніколи не винайшов би радар!».",
-        "У Windows не можна створити файл або теку під назвою «Con», бо у Білла Гейтса в дитинстві було прізвисько, Con — ботанік. І він постарався щоб в його системі були відсутні такі файли й теки.",
-        "На поверхні звичайного офісного столу кількість бактерій в 400 разів більша, ніж на сидінні унітазу.",
-        "У 18 столітті серед парижанок було модно носити капелюшки з громовідводами."
-        ]
-    print(facts[random.randint(0, 10)])
+    print(choice(facts))
     while True:
-        print("Бажаєте ще цікавий факт?")
-        choice = str(input('Відповідь (y/n): '))
-        if choice == "y":
-            print(facts[random.randint(0, 10)])
-        elif choice == "n":
+        print("Would you like another interesting fact?")
+        user_input = input('Input (y/n): ')
+        if user_input == "y":
+            print(choice(facts))
+        elif user_input == "n":
+            separator()
             break
-    pass
 
 
 def main():
@@ -246,7 +255,7 @@ def main():
                 print(pyjokes.get_joke())
                 separator()
                 sleep(3)
-            else:
+            elif option_input == 2:
                 # Getting fonts from module
                 fonts_list = Figlet().getFonts()
                 # Getting phrase from user for converting
@@ -256,9 +265,12 @@ def main():
                 # Setting random color
                 set_color = choice(colors)
                 # Printing result
-                termcolor.cprint(Figlet().renderText(user_input), set_color)
+                print(colored(Figlet().renderText(user_input), set_color))
                 separator()
                 sleep(3)
+
+            elif option_input == 3:
+                interesting_facts()
 
         else:
             print('Goodbye!'.center(60, ' '))
