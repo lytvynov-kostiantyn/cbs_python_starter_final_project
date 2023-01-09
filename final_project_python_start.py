@@ -187,13 +187,12 @@ def main():
         # Main menu
         print('Welcome cbs bot!'.center(60, '.'))
         print('Select one of available options: ')
-        menu = list(catalog.keys())
-        for i in range(len(menu)):
-            print(f'\t{i + 1}. {menu[i]};')
+        for num, value in enumerate(catalog.keys()):
+            print(f'\t{num + 1}. {value};')
         separator()
 
         # Getting menu number from user
-        user_input = get_menu_num(len(menu), 'Select menu number')
+        user_input = get_menu_num(len(catalog.keys()), 'Select menu number')
         separator()
 
         if user_input in [1, 2, 3]:
@@ -224,8 +223,8 @@ def main():
         elif user_input == 4:
             print('We can play: ')
             available_games = catalog['Play the game']
-            for i in range(len(available_games)):
-                print(f"\t{i + 1}. {available_games[i]};")
+            for num, value in enumerate(available_games):
+                print(f'\t{num + 1}. {value};')
             separator()
 
             # Getting menu number from user
@@ -243,8 +242,8 @@ def main():
         elif user_input == 5:
             print('We can suggest: ')
             options = catalog['More fun:)']
-            for i in range(len(options)):
-                print(f"\t{i + 1}. {options[i]};")
+            for num, value in enumerate(options):
+                print(f'\t{num + 1}. {value};')
             separator()
 
             # Getting menu number from user
