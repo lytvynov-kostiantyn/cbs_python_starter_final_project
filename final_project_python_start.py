@@ -1,7 +1,7 @@
 from time import sleep
 import pyjokes
 from pyfiglet import Figlet
-from random import choice, randrange, choices
+from random import choice, randrange
 import colorama
 from termcolor import colored
 
@@ -195,7 +195,7 @@ def main():
         user_input = get_menu_num(len(catalog.keys()), 'Select menu number')
         separator()
 
-        if user_input in [1, 2, 3]:
+        if 1 <= user_input <= 3:
             print('Available genres: ')
             match user_input:
                 case 1:
@@ -216,7 +216,7 @@ def main():
             # Giving the user a random movie from the database
             db_list = catalog[baz][genre]
             separator()
-            print('We can recommend: "{}"'.format(*choices(db_list)))
+            print('We can recommend: "{}"'.format(choice(db_list)))
             separator()
             sleep(3)
 
